@@ -1,94 +1,3 @@
-# # import streamlit as st
-# # import joblib
-# # import pandas as pd
-
-# # model = joblib.load('knn_model.pkl')
-# # scaler = joblib.load('scaler.pkl')
-# # expected_columns = joblib.load('columns.pkl')
-
-# # st.title('Heart Disease Prediction by Ayu')
-# # st.markdown('Please enter the following details to predict the likelihood of heart disease:')
-# # age = st.slider('Age', 18, 100, 40)
-# # sex = st.selectbox('Sex', ['M', 'F'])
-# # chest_pain = st.selectbox('Chest Pain Type', ['Typical Angina', 'Atypical Angina', 'Non-anginal Pain', 'Asymptomatic'])
-# # resting_bp = st.number_input('Resting Blood Pressure (mm Hg)', 80, 200, 120)
-# # cholesterol = st.number_input('Serum Cholesterol (mg/dl)', 100, 600, 200)
-# # fasting_bs = st.selectbox('Fasting Blood Sugar > 120 mg/dl', ['1', '0'])
-# # rest_ecg = st.selectbox('Resting ECG', ['Normal', 'ST-T Wave Abnormality', 'Left Ventricular Hypertrophy'])
-# # max_hr = st.slider('Maximum Heart Rate Achieved', 60, 220, 150)
-# # exercise_angina = st.selectbox('Exercise Induced Angina', ['1', '0'])
-# # st_depression = st.slider('ST Depression Induced by Exercise', 0.0, 6.0, 1.0)
-# # st_slope = st.selectbox('Slope of the Peak Exercise ST Segment', ['UP', 'Flat', 'Down'])
-
-
-# import streamlit as st
-# import pandas as pd
-# import joblib
-
-# # Load saved model, scaler, and expected columns
-# model = joblib.load("knn_model.pkl")
-# scaler = joblib.load("scaler.pkl")
-# expected_columns = joblib.load("columns.pkl")
-
-# st.title("Heart Stroke Prediction by Shubham")
-# st.markdown("Provide the following details to check your heart stroke risk:")
-
-# # Collect user input
-# age = st.slider("Age", 18, 100, 40)
-# sex = st.selectbox("Sex", ["Male", "Female"])
-# chest_pain = st.selectbox("Chest Pain Type", ['Typical Angina', 'Atypical Angina', 'Non-anginal Pain', 'Asymptomatic'])
-# resting_bp = st.number_input("Resting Blood Pressure (mm Hg)", 80, 200, 120)
-# cholesterol = st.number_input("Cholesterol (mg/dL)", 100, 600, 200)
-# fasting_bs = st.selectbox("Fasting Blood Sugar > 120 mg/dL", [0, 1])
-# resting_ecg = st.selectbox("Resting ECG", ['Normal', 'ST-T Wave Abnormality', 'Left Ventricular Hypertrophy'])
-# max_hr = st.slider("Max Heart Rate", 60, 220, 150)
-# exercise_angina = st.selectbox("Exercise-Induced Angina", ["Yes", "No"])
-# oldpeak = st.slider("Oldpeak (ST Depression)", 0.0, 6.0, 1.0)
-# st_slope = st.selectbox("ST Slope", ["Up", "Flat", "Down"])
-
-# # When Predict is clicked
-# if st.button("Predict"):
-
-#     # Create a raw input dictionary
-#     raw_input = {
-#         'Age': age,
-#         'RestingBP': resting_bp,
-#         'Cholesterol': cholesterol,
-#         'FastingBS': fasting_bs,
-#         'MaxHR': max_hr,
-#         'Oldpeak': oldpeak,
-#         'Sex_' + sex: 1,
-#         'ChestPainType_' + chest_pain: 1,
-#         'RestingECG_' + resting_ecg: 1,
-#         'ExerciseAngina_' + exercise_angina: 1,
-#         'ST_Slope_' + st_slope: 1
-#     }
-
-#     # Create input dataframe
-#     input_df = pd.DataFrame([raw_input])
-
-#     # Fill in missing columns with 0s
-#     for col in expected_columns:
-#         if col not in input_df.columns:
-#             input_df[col] = 0
-
-#     # Reorder columns
-#     input_df = input_df[expected_columns]
-
-#     # Scale the input
-#     scaled_input = scaler.transform(input_df)
-
-#     # Make prediction
-#     prediction = model.predict(scaled_input)[0]
-
-#     # Show result
-#     if prediction == 1:
-#         st.error("⚠️ High Risk of Heart Disease")
-#     else:
-#         st.success("✅ Low Risk of Heart Disease")
-        
-#         # done one basic model
-
 import streamlit as st
 import pandas as pd
 import joblib
@@ -202,13 +111,10 @@ div.stButton > button:active { transform: scale(0.99); }
 # ── Load artefacts ────────────────────────────────────────────────────────────
 @st.cache_resource
 def load_artefacts():
-    # model    = joblib.load("knn_model.pkl")
-    # scaler   = joblib.load("scaler.pkl")
-    # columns  = joblib.load("columns.pkl")
         model    = joblib.load("stroke-risk-predictor/knn_model.pkl")
-scaler   = joblib.load("stroke-risk-predictor/scaler.pkl")
-columns  = joblib.load("stroke-risk-predictor/columns.pkl")
-    return model, scaler, columns
+        scaler   = joblib.load("stroke-risk-predictor/scaler.pkl")
+        columns  = joblib.load("stroke-risk-predictor/columns.pkl")
+        return model, scaler, columns
 
 model, scaler, expected_columns = load_artefacts()
 
